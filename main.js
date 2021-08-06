@@ -23,3 +23,28 @@ function modelLoaded () {
     console.log("modelLoaded");
 }
 }
+function check(){
+
+    img = document.getElementById("captured_image");
+    classifier.classify(img,gotResult);
+}
+function gotResult(error,results){
+if (error){
+    console.error(error);
+}
+else {
+console.log(results);
+document.getElementById("result_emotion_name").innerHTML= results[0].label;
+document.getElementById("result_emotion_name2").innerHTML= results[1].label;
+perdiction_1 = results[0].label;
+perdiction_2 = results[1].label;
+speak();
+}
+}
+function speak(){
+var synth = window.speechSynthesis;
+speak_data1 = "the first perdiction is "+perdiction_1;
+speak_data2 = "and the second perdiction is "+perdiction_2;
+var utterThis = new SpeechSynthesisUtterance(speak_data1 + speak_data2);
+ synth.speak(utterThis);
+}
